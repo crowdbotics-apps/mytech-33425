@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'techbotics_33425.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'react_django_web_33425.settings')
 
 application = get_asgi_application()
