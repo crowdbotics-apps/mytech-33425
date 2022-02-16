@@ -1,4 +1,4 @@
-# react_django_web_33425
+# techbotics-33425
 
 This is a repository for a web application developed with Django, built with [Crowdbotics](https://crowdbotics.com)
 
@@ -11,29 +11,7 @@ This is a repository for a web application developed with Django, built with [Cr
    - [Local Setup](#local-setup-alternative-to-docker)
 4. [Usage](#usage)
    - [Admin Panel](#admin-panel)
-   - [API Documentation](#api-documentation)
-
-## Project Structure
-
-    ..
-    ├── home                           # Starter home app
-    ├── modules                        # Crowdbotics Modules app
-    ├── react_django_web_33425  # Django project configurations
-    ├── static                         # Static assets
-    ├── users                          # Starter users app
-    ├── web_build                      # React Native Web build
-    ├── ...
-    ├── README.md
-    └── ...
-
-## Features
-
-1. **Local Authentication** using email and password with [allauth](https://pypi.org/project/django-allauth/)
-2. **Rest API** using [django rest framework](http://www.django-rest-framework.org/)
-3. **Forgot Password**
-4. [Bootstrap4](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
-5. Toast Notification
-6. Inline content editor in homepage
+   - [API Documentation](#api-documentation)a
 
 # Getting Started: Backend
 
@@ -50,7 +28,7 @@ This project is set up to run using [Docker Compose](https://docs.docker.com/com
 1. Install Docker:
    - Linux - [get.docker.com](https://get.docker.com/)
    - Windows or MacOS - [Docker Desktop](https://www.docker.com/products/docker-desktop)
-1. Clone this repo and `cd react_django_web_33425`
+1. Clone this repo and `cd techbotics-33425`
 1. Make sure `Pipfile.lock` exists. If it doesn't, generate it with:
    ```sh
    $ docker run -it --rm -v "$PWD":/django -w /django python:3.7 pip3 install --no-cache-dir -q pipenv && pipenv lock
@@ -90,7 +68,7 @@ This project is set up to run using [Docker Compose](https://docs.docker.com/com
 ### Installation
 
 1. Install [pipenv](https://pypi.org/project/pipenv/)
-2. Clone this repo and `cd react_django_web_33425`
+2. Clone this repo and `cd techbotics-33425`
 3. Run `pip install --user --upgrade pipenv` to get the latest pipenv version.
 4. Run `pipenv --python 3.6`
 5. Run `pipenv install`
@@ -114,3 +92,6 @@ Admin Panel can be accessed through http://localhost:8000/admin/. If you are the
 ## API Documentation
 
 API Documentation is generated automatically and can be access through http://localhost:8000/api-docs/. Please make sure you are signed in to the admin panel before navigating to this page.
+
+
+update Pipfile using     pipenv lock --requirements
