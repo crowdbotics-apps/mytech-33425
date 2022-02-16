@@ -66,7 +66,7 @@ SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 SESSION_TIMEOUT_REDIRECT = 'accounts/login'
 
 
-ROOT_URLCONF = 'techbotics-33425.urls'
+ROOT_URLCONF = 'techbotics_33425.urls'
 
 TEMPLATES = [
     {
@@ -86,7 +86,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'techbotics-33425.wsgi.application'
+WSGI_APPLICATION = 'techbotics_33425.wsgi.application'
 
 AUTH_USER_MODEL ='accounts.Account'
 
