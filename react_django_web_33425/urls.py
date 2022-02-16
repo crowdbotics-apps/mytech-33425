@@ -35,9 +35,9 @@ urlpatterns = [
     path("rest-auth/registration/", include("rest_auth.registration.urls")),
 ]
 
-admin.site.site_header = "react-django-web"
-admin.site.site_title = "react-django-web Admin Portal"
-admin.site.index_title = "react-django-web Admin"
+admin.site.site_header = "TechBotics"
+admin.site.site_title = "TechBotics Admin Portal"
+admin.site.index_title = "TechBotics Admin"
 
 # swagger
 api_info = openapi.Info(
