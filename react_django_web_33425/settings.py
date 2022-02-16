@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-     "whitenoise.middleware.WhiteNoiseMiddleware",
+     #"whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -142,13 +142,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR
 
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = 'store'
@@ -172,6 +172,23 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_STORAGE_REGION = os.getenv('AWS_STORAGE_REGION')
+AWS_DEFAULT_ACL = None
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+# s3 static settings
+STATIC_LOCATION = 'static'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+STATICFILES_STORAGE = 'react_django_web_33425.storage_backends.StaticStorage'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, STATIC_LOCATION),)
+# s3 public media settings
+PUBLIC_MEDIA_LOCATION = 'media'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+DEFAULT_FILE_STORAGE = 'mytech.storage_backends.PublicMediaStorage'
 
 LOGGING = {
     'version': 1,
@@ -252,18 +269,4 @@ LOGGING = {
 # In settings.py, add the following, to use additional S3 Bucket as staticfiles storage independently from the default 
 # Elastic Beanstalk S3 bucket
 
-# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-# AWS_DEFAULT_ACL = None
-# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-# AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
-# s3 static settings
-# STATIC_LOCATION = 'static'
-# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-# STATICFILES_STORAGE = 'mytech.storage_backends.StaticStorage'
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, STATIC_LOCATION),)
-# s3 public media settings
-# PUBLIC_MEDIA_LOCATION = 'media'
-# MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
-# DEFAULT_FILE_STORAGE = 'mytech.storage_backends.PublicMediaStorage'
+
