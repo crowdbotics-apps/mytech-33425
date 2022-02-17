@@ -27,7 +27,7 @@ COPY --from=base /opt/webapp/manage.py /opt/webapp/manage.py
 WORKDIR /opt/webapp
 ENV PATH=/root/.local/bin:$PATH
 ARG SECRET_KEY 
-RUN python3 manage.py collectstatic --no-input
+#RUN python3 manage.py collectstatic --no-input
 
 # Run the image as a non-root user
 RUN adduser --disabled-password --gecos "" django
