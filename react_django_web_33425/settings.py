@@ -186,7 +186,7 @@ AWS_MEDIA_LOCATION = env.str("AWS_MEDIA_LOCATION", "media")
 AWS_AUTO_CREATE_BUCKET = env.bool("AWS_AUTO_CREATE_BUCKET", True)
 
 DEFAULT_FILE_STORAGE = env.str(
-        "DEFAULT_FILE_STORAGE", "react_django_web_33425.storage_backends.storage_backends.MediaStorage"
+        "DEFAULT_FILE_STORAGE", "react_django_web_33425.storage_backends.MediaStorage"
     )
 STATICFILES_STORAGE = 'react_django_web_33425.storage_backends.StaticStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
