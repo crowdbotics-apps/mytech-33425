@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'api',
     'newsletter',
     'django_filters',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -183,15 +184,17 @@ AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
 AWS_DEFAULT_ACL = env.str("AWS_DEFAULT_ACL", "public-read")
 AWS_MEDIA_LOCATION = env.str("AWS_MEDIA_LOCATION", "media")
 AWS_AUTO_CREATE_BUCKET = env.bool("AWS_AUTO_CREATE_BUCKET", True)
+
+# s3 public static settings
+STATIC_LOCATION = 'static'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+STATICFILES_STORAGE = 'react_django_web_33425.storage_backends.StaticStorage'
+# s3 public media settings
+PUBLIC_MEDIA_LOCATION = 'media'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
 DEFAULT_FILE_STORAGE = env.str(
     "DEFAULT_FILE_STORAGE", "react_django_web_33425.storage_backends.MediaStorage"
 )
-STATIC_LOCATION = 'static'
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STORAGE_BUCKET_NAME}/{STATIC_LOCATION}/'
-STATICFILES_STORAGE = 'react_django_web_33425.storage_backends.StaticStorage'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, STATIC_LOCATION),)
-MEDIA_URL = '/mediafiles/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # s3 public media settings
 # PUBLIC_MEDIA_LOCATION = 'media'
