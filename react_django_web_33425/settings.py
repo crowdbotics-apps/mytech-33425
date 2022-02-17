@@ -187,7 +187,7 @@ DEFAULT_FILE_STORAGE = env.str(
     "DEFAULT_FILE_STORAGE", "react_django_web_33425.storage_backends.MediaStorage"
 )
 STATIC_LOCATION = 'static'
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STORAGE_BUCKET_NAME}/{STATIC_LOCATION}/'
 STATICFILES_STORAGE = 'react_django_web_33425.storage_backends.StaticStorage'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, STATIC_LOCATION),)
 MEDIA_URL = '/mediafiles/'
