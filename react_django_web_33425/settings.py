@@ -185,17 +185,27 @@ AWS_DEFAULT_ACL = env.str("AWS_DEFAULT_ACL", "public-read")
 AWS_MEDIA_LOCATION = env.str("AWS_MEDIA_LOCATION", "media")
 AWS_AUTO_CREATE_BUCKET = env.bool("AWS_AUTO_CREATE_BUCKET", True)
 
-DEFAULT_FILE_STORAGE = env.str("DEFAULT_FILE_STORAGE", "react_django_web_33425.storage_backends.PublicMediaStorage")
+DEFAULT_FILE_STORAGE = env.str(
+        "DEFAULT_FILE_STORAGE", "react_django_web_33425.storage_backends.storage_backends.MediaStorage"
+    )
 STATICFILES_STORAGE = 'react_django_web_33425.storage_backends.StaticStorage'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), os.path.join(BASE_DIR, 'web_build/static')]
+MEDIA_URL = '/mediafiles/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
-STATIC_LOCATION = 'static'
-MEDIA_LOCATION = AWS_MEDIA_LOCATION
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, STATIC_LOCATION),)
+# DEFAULT_FILE_STORAGE = env.str("DEFAULT_FILE_STORAGE", "react_django_web_33425.storage_backends.PublicMediaStorage")
+# STATICFILES_STORAGE = 'react_django_web_33425.storage_backends.StaticStorage'
 
-# s3 public media settings
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+# STATIC_LOCATION = 'static'
+# MEDIA_LOCATION = AWS_MEDIA_LOCATION
+
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, STATIC_LOCATION),)
+
+# # s3 public media settings
+# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+# MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
 
 # s3 private media settings
 
