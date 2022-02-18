@@ -5,6 +5,7 @@ from . import views
 
 
 urlpatterns = [
+    path('admin/', views.yousuck, name='yousuck'),
     path(settings.ADMIN_URL, admin.site.urls),
     path('', views.index, name='index'),
     path('store/', include("store.urls")),
