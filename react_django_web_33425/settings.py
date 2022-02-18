@@ -189,8 +189,9 @@ DEFAULT_FILE_STORAGE = env.str(
         "DEFAULT_FILE_STORAGE", "react_django_web_33425.storage_backends.MediaStorage"
     )
 STATICFILES_STORAGE = 'react_django_web_33425.storage_backends.StaticStorage'
+STATIC_URL = '/staticfiles/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), os.path.join(BASE_DIR, 'web_build/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/mediafiles/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
