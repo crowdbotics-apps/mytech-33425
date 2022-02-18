@@ -77,7 +77,6 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'whitenoise.middleware.WhiteNoiseMiddleware',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -125,9 +124,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), os.path.join(BASE_DIR, 'web_build/static')]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
