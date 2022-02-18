@@ -67,7 +67,7 @@ SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 SESSION_TIMEOUT_REDIRECT = 'accounts/login'
 
 
-ROOT_URLCONF = 'react_django_web_33425.urls'
+ROOT_URLCONF = 'techbotics_33425.urls'
 
 TEMPLATES = [
     {
@@ -87,7 +87,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'react_django_web_33425.application'
+WSGI_APPLICATION = 'techbotics_33425.application'
 
 AUTH_USER_MODEL ='accounts.Account'
 
@@ -142,6 +142,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+ADMIN_URL = env.str("ADMIN_URL", "")
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -184,7 +185,7 @@ AWS_DEFAULT_ACL = env.str("AWS_DEFAULT_ACL", "public-read")
 AWS_MEDIA_LOCATION = env.str("AWS_MEDIA_LOCATION", "media")
 AWS_AUTO_CREATE_BUCKET = env.bool("AWS_AUTO_CREATE_BUCKET", True)
 DEFAULT_FILE_STORAGE = env.str(
-    "DEFAULT_FILE_STORAGE", "react_django_web_33425.storage_backends.MediaStorage"
+    "DEFAULT_FILE_STORAGE", "techbotics_33425.storage_backends.MediaStorage"
 )
 MEDIA_URL = '/mediafiles/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
