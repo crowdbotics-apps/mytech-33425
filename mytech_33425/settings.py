@@ -67,7 +67,7 @@ SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 SESSION_TIMEOUT_REDIRECT = 'accounts/login'
 
 
-ROOT_URLCONF = 'techbotics_33425.urls'
+ROOT_URLCONF = 'mytech_33425.urls'
 
 TEMPLATES = [
     {
@@ -87,7 +87,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'techbotics_33425.application'
+WSGI_APPLICATION = 'mytech_33425.application'
 
 AUTH_USER_MODEL ='accounts.Account'
 
@@ -185,7 +185,7 @@ AWS_DEFAULT_ACL = env.str("AWS_DEFAULT_ACL", "public-read")
 AWS_MEDIA_LOCATION = env.str("AWS_MEDIA_LOCATION", "media")
 AWS_AUTO_CREATE_BUCKET = env.bool("AWS_AUTO_CREATE_BUCKET", True)
 DEFAULT_FILE_STORAGE = env.str(
-    "DEFAULT_FILE_STORAGE", "techbotics_33425.storage_backends.MediaStorage"
+    "DEFAULT_FILE_STORAGE", "mytech_33425.storage_backends.MediaStorage"
 )
 MEDIA_URL = '/mediafiles/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
