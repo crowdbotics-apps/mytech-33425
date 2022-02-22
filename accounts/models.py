@@ -3,12 +3,13 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self, f_name, l_name, email, password=None):
+    def create_user(self, f_name, l_name, email, tel, password=None):
         if not email:
             raise ValueError('Please provide valid email address.')
 
         user = self.model(
             email = self.normalize_email(email),
+            tel = tel,
             f_name = f_name,
             l_name = l_name,
         )
