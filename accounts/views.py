@@ -1,4 +1,3 @@
-from email import message
 from django.shortcuts import render, redirect
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
@@ -14,7 +13,6 @@ from cart.models import Cart, CartItem
 from cart.views import _cart_id
 from orders.models import Order, OrderProduct
 import smtplib
-from django.conf import settings
 
 
 def register(request):
@@ -40,13 +38,15 @@ def register(request):
                 'token': default_token_generator.make_token(user),
             })
             to_email = email
-            mail_server = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
-            mail_server.starttls() 
-            mail_server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD) 
-            mail_server.send_message(subject, body, to=[to_email], fail_silently=False)
-            mail_server.quit()
-            mail_sent = True
-            if mail_sent:
+            send_email = EmailMessage(subject, body, to=[to_email])
+            # mail_server = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
+            # mail_server.starttls() 
+            # mail_server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD) 
+            # mail_server.send_message(subject, body, to=[to_email], fail_silently=False)
+            # mail_server.quit()
+            # mail_sent = True
+            # if mail_sent:
+            if send_email.send():
                 return redirect('/accounts/login/?command=verification&email='+email)
             #send_email = EmailMessage(subject, body, to=[to_email])
             #send_email.fail_silently = False
@@ -121,15 +121,17 @@ def forgot_password(request):
                     'token': default_token_generator.make_token(user),
                 })
                 to_email = email
-                mail_server = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
-                mail_server.starttls() 
-                mail_server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD) 
-                mail_server.send_message(subject, body, to=[to_email])
-                mail_server.quit()
-                mail_sent = True
+                send_email = EmailMessage(subject, body, to=[to_email])
+                # mail_server = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
+                # mail_server.starttls() 
+                # mail_server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD) 
+                # mail_server.send_message(subject, body, to=[to_email])
+                # mail_server.quit()
+                # mail_sent = True
                 # send_email = EmailMessage(subject, body, to=[to_email])
                 # send_email.send()
-                if mail_sent: 
+                # if mail_sent: 
+                if send_email.send():
                     messages.success(request, 'If your account exists, you will receive a reset password link shortly.')
                     return redirect('login')
                 
