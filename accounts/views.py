@@ -12,37 +12,45 @@ from.forms import RegistrationForm, UserForm, UserProfileForm
 from cart.models import Cart, CartItem
 from cart.views import _cart_id
 from orders.models import Order, OrderProduct
+import smtplib
+from django.conf import settings
 
 
 def register(request):
     if request.method == 'POST': 
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            f_name = form.cleaned_data['f_name']
-            l_name = form.cleaned_data['l_name']
-            email = form.cleaned_data['email']
-            tel = form.cleaned_data['tel']
-            password = form.cleaned_data['password']
-            user = Account.objects.create_user(f_name=f_name, l_name=l_name, email=email, tel=tel, password=password)
-            user.save()
+            try:
+                f_name = form.cleaned_data['f_name']
+                l_name = form.cleaned_data['l_name']
+                email = form.cleaned_data['email']
+                tel = form.cleaned_data['tel']
+                password = form.cleaned_data['password']
+                user = Account.objects.create_user(f_name=f_name, l_name=l_name, email=email, tel=tel, password=password)
+                user.save()
 
-            current_site = get_current_site(request)
-            subject = 'Account activation'
-            body = render_to_string('accounts/register_verification_email.html', {
-                'user':user,
-                'domain': current_site,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': default_token_generator.make_token(user),
-            })
-            to_email = email
-            send_email = EmailMessage(subject, body, to=[to_email])
-            #send_email.fail_silently = False
-            if send_email.send():
+                current_site = get_current_site(request)
+                subject = 'Account activation'
+                body = render_to_string('accounts/register_verification_email.html', {
+                    'user':user,
+                    'domain': current_site,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': default_token_generator.make_token(user),
+                })
+                to_email = email
+                mail_server = smtplib.SMTP(settings.EMAIL_HOST)
+                mail_server.starttls() 
+                mail_server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD) 
+                mail_server.send_message(subject, body, to=[to_email])
+                mail_server.quit()
                 return redirect('/accounts/login/?command=verification&email='+email)
-
-        else:
-            form = RegistrationForm()
-            return render(request, 'accounts/register.html', {'form':form})
+            #send_email = EmailMessage(subject, body, to=[to_email])
+            #send_email.fail_silently = False
+            #if mail_server.send_message(subject, body, to=[to_email]):
+            except smtplib.SMTPException:
+                form = RegistrationForm()
+                return render(request, 'accounts/register.html', {'form':form})
+            
     else:
         form = RegistrationForm()
         return render(request, 'accounts/register.html', {'form':form})
