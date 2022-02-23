@@ -38,7 +38,8 @@ def register(request):
                     'token': default_token_generator.make_token(user),
                 })
                 to_email = email
-                mail_server = smtplib.SMTP(settings.EMAIL_HOST)
+                mail_server = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
+                mail_server.ehlo()
                 mail_server.starttls() 
                 mail_server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD) 
                 mail_server.send_message(subject, body, to=[to_email])
@@ -105,23 +106,31 @@ def forgot_password(request):
     if request.method == 'POST':
         email = request.POST['email']
         if Account.objects.filter(email=email).exists():
-            user = Account.objects.get(email__exact=email)
-            current_site = get_current_site(request)
-            subject = 'Password reset request.'
-            body = render_to_string('accounts/password_reset_request.html', {
-                'user':user,
-                'domain': current_site,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': default_token_generator.make_token(user),
-            })
-            to_email = email
-            send_email = EmailMessage(subject, body, to=[to_email])
-            send_email.send()
-            messages.success(request, 'If your account exists, you will receive a reset password link shortly.')
-            return redirect('login')
-        else:
-            messages.error(request, 'Invalid email address!')
-            return redirect('forgot_password')
+            try:
+                user = Account.objects.get(email__exact=email)
+                current_site = get_current_site(request)
+                subject = 'Password reset request.'
+                body = render_to_string('accounts/password_reset_request.html', {
+                    'user':user,
+                    'domain': current_site,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': default_token_generator.make_token(user),
+                })
+                to_email = email
+                mail_server = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
+                mail_server.ehlo()
+                mail_server.starttls() 
+                mail_server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD) 
+                mail_server.send_message(subject, body, to=[to_email])
+                mail_server.quit()
+                # send_email = EmailMessage(subject, body, to=[to_email])
+                # send_email.send()
+                messages.success(request, 'If your account exists, you will receive a reset password link shortly.')
+                return redirect('login')
+                
+            except smtplib.SMTPException:
+                messages.error(request, 'Invalid email address!')
+                return redirect('forgot_password')
     else:
         return render(request, 'accounts/forgot_password.html')
 
